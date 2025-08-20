@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>ModernWeb Documentation - Project README</title>
+    <meta name="title" content="ModernWeb Documentation - Project README">
+    <meta name="description" content="Comprehensive documentation for ModernWeb - A modern, responsive web development portfolio showcasing cutting-edge design principles and interactive user experiences.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary-color: #ec4899;
+            --accent-color: #10b981;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-light: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-card: #ffffff;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-primary: #f9fafb;
+                --text-secondary: #d1d5db;
+                --text-light: #9ca3af;
+                --bg-primary: #111827;
+                --bg-secondary: #1f2937;
+                --bg-card: #1f2937;
+                --border-color: #374151;
+            }
+        }
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .header-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .header-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .header-link:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-link.secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Navigation */
+        .nav-sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-card);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 0;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .nav-sidebar.active {
+            left: 0;
+        }
+
+        .nav-toggle {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .nav-toggle:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        .nav-sidebar h3 {
+            padding: 0 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .nav-sidebar ul {
+            list-style: none;
+        }
+
+        .nav-sidebar a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .nav-sidebar a:hover,
+        .nav-sidebar a.active {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary-color);
+            border-right: 3px solid var(--primary-color);
+        }
+
+        /* Main content */
+        .main {
+            padding: 2rem 0;
+            margin-left: 0;
+            transition: var(--transition);
+        }
+
+        .main.shifted {
+            margin-left: 280px;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-top: 2rem;
+        }
+
+        h4 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        /* Code blocks */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-secondary);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+        }
+
+        pre {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        td {
+            color: var(--text-secondary);
+        }
+
+        tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        /* Feature grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .feature-card h4 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-card ul {
+            padding-left: 1.5rem;
+        }
+
+        /* Status badges */
+        .status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status.supported {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-color);
+        }
+
+        .status.limited {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .status.excellent {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-color);
+        }
+
+        .status.perfect {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary-color);
+        }
+
+        /* Links */
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        /* Blockquotes */
+        blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem 2rem;
+            margin: 2rem 0;
+            background: var(--bg-secondary);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 0;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .footer-section a {
+            display: block;
+            padding: 0.25rem 0;
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-light);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .main.shifted {
+                margin-left: 0;
+            }
+
+            .nav-sidebar {
+                width: 100%;
+                left: -100%;
+            }
+
+            .nav-sidebar.active {
+                left: 0;
+            }
+
+            .header-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 0.75rem;
+            }
+        }
+
+        /* Scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .section {
+            scroll-margin-top: 2rem;
+        }
+
+        /* Loading animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Toggle -->
+    <button class="nav-toggle" onclick="toggleNav()">📚</button>
+
+    <!-- Sidebar Navigation -->
+    <nav class="nav-sidebar" id="navSidebar">
+        <h3>📋 Table of Contents</h3>
+        <ul>
+            <li><a href="#about" onclick="closeNav()">About</a></li>
+            <li><a href="#technologies" onclick="closeNav()">Technologies Used</a></li>
+            <li><a href="#features" onclick="closeNav()">Features</a></li>
+            <li><a href="#screenshots" onclick="closeNav()">Screenshots</a></li>
+            <li><a href="#setup" onclick="closeNav()">Setup Instructions</a></li>
+            <li><a href="#deployment" onclick="closeNav()">Deployment</a></li>
+            <li><a href="#browser-support" onclick="closeNav()">Browser Support</a></li>
+            <li><a href="#performance" onclick="closeNav()">Performance</a></li>
+            <li><a href="#contributing" onclick="closeNav()">Contributing</a></li>
+            <li><a href="#license" onclick="closeNav()">License</a></li>
+            <li><a href="#contact" onclick="closeNav()">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>📚 ModernWeb Documentation</h1>
+            <p>A modern, responsive web development portfolio showcasing cutting-edge design principles, interactive user experiences, and production-ready code. Built with semantic HTML5, modern CSS, and vanilla JavaScript.</p>
+            <div class="header-links">
+                <a href="https://modernweb.dev" class="header-link">🚀 Live Demo</a>
+                <a href="https://docs.modernweb.dev" class="header-link secondary">📖 Documentation</a>
+                <a href="https://github.com/your-username/modernweb" class="header-link secondary">⭐ GitHub Repository</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main" id="mainContent">
+        <div class="container">
+            <!-- About Section -->
+            <section id="about" class="section">
+                <h2>🎯 About</h2>
+                <p>ModernWeb is a professional portfolio website template designed for web developers and agencies. It demonstrates modern web development best practices, responsive design principles, and engaging user interactions. The project serves as both a portfolio showcase and a learning resource for contemporary web development techniques.</p>
+                
+                <div class="card">
+                    <h3>Key Highlights</h3>
+                    <ul>
+                        <li><strong>Mobile-First Design:</strong> Responsive across all devices and screen sizes</li>
+                        <li><strong>Modern Aesthetics:</strong> Clean design with smooth animations and micro-interactions</li>
+                        <li><strong>SEO Optimized:</strong> Comprehensive meta tags and social media integration</li>
+                        <li><strong>Performance Focused:</strong> Optimized loading times and efficient resource usage</li>
+                        <li><strong>Accessibility Ready:</strong> WCAG 2.1 compliant with keyboard navigation support</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Technologies Used -->
+            <section id="technologies" class="section">
+                <h2>🛠 Technologies Used</h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>🎨 Frontend</h4>
+                        <ul>
+                            <li><strong>HTML5</strong> - Semantic markup and modern web standards</li>
+                            <li><strong>CSS3</strong> - Advanced styling with Grid, Flexbox, and custom properties</li>
+                            <li><strong>JavaScript (ES6+)</strong> - Interactive functionality and DOM manipulation</li>
+                            <li><strong>Inter Font Family</strong> - Modern typography via Google Fonts</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4>🎨 Design & UX</h4>
+                        <ul>
+                            <li><strong>CSS Grid & Flexbox</strong> - Advanced layout systems</li>
+                            <li><strong>CSS Custom Properties</strong> - Consistent theming and dark mode support</li>
+                            <li><strong>CSS Animations</strong> - Smooth transitions and micro-interactions</li>
+                            <li><strong>Responsive Design</strong> - Mobile-first approach with breakpoint optimization</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4>🔍 SEO & Social Media</h4>
+                        <ul>
+                            <li><strong>Open Graph Protocol</strong> - Enhanced social media sharing</li>
+                            <li><strong>Twitter Cards</strong> - Optimized Twitter previews</li>
+                            <li><strong>Meta Tags</strong> - Comprehensive SEO optimization</li>
+                            <li><strong>Structured Data</strong> - Search engine friendly markup</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features -->
+            <section id="features" class="section">
+                <h2>✨ Features</h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>🎨 Design Features</h4>
+                        <ul>
+                            <li>✅ Modern gradient color schemes</li>
+                            <li>✅ Smooth animations and transitions</li>
+                            <li>✅ Interactive hover effects</li>
+                            <li>✅ Glassmorphism navigation bar</li>
+                            <li>✅ Custom loading animations</li>
+                            <li>✅ Dark mode support (automatic)</li>
+                            <li>✅ Responsive typography scaling</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4>📱 Responsive Features</h4>
+                        <ul>
+                            <li>✅ Mobile-first responsive design</li>
+                            <li>✅ Hamburger navigation menu</li>
+                            <li>✅ Adaptive layouts for all screen sizes</li>
+                            <li>✅ Touch-friendly interactive elements</li>
+                            <li>✅ Optimized mobile performance</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4>🔧 Functional Features</h4>
+                        <ul>
+                            <li>✅ Smooth scrolling navigation</li>
+                            <li>✅ Active section highlighting</li>
+                            <li>✅ Interactive contact form</li>
+                            <li>✅ Project showcase grid</li>
+                            <li>✅ Dynamic greeting rotation</li>
+                            <li>✅ Form validation and feedback</li>
+                            <li>✅ Keyboard accessibility support</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4>🚀 Performance Features</h4>
+                        <ul>
+                            <li>✅ Optimized loading animations</li>
+                            <li>✅ Efficient CSS and JavaScript</li>
+                            <li>✅ Compressed and optimized assets</li>
+                            <li>✅ Progressive enhancement</li>
+                            <li>✅ Minimal third-party dependencies</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Screenshots -->
+            <section id="screenshots" class="section">
+                <h2>📸 Screenshots</h2>
+                
+                <div class="card">
+                    <h3>Desktop View</h3>
+                    <p><strong>Homepage featuring hero section with interactive cards</strong><br>
+                    <em>Screenshot placeholder: ./screenshots/desktop-home.png</em></p>
+                    
+                    <p><strong>About section with grid layout and content areas</strong><br>
+                    <em>Screenshot placeholder: ./screenshots/desktop-about.png</em></p>
+                    
+                    <p><strong>Projects showcase with hover effects and technology tags</strong><br>
+                    <em>Screenshot placeholder: ./screenshots/desktop-projects.png</em></p>
+                </div>
+
+                <div class="card">
+                    <h3>Mobile View</h3>
+                    <p><strong>Responsive hamburger navigation menu</strong><br>
+                    <em>Screenshot placeholder: ./screenshots/mobile-nav.png</em></p>
+                    
+                    <p><strong>Mobile-optimized homepage layout</strong><br>
+                    <em>Screenshot placeholder: ./screenshots/mobile-home.png</em></p>
+                </div>
+
+                <div class="card">
+                    <h3>Interactive Elements</h3>
+                    <p><strong>Interactive contact form with validation</strong><br>
+                    <em>Screenshot placeholder: ./screenshots/contact-form.png</em></p>
+                    
+                    <p><strong>Smooth loading animations and transitions</strong><br>
+                    <em>Screenshot placeholder: ./screenshots/loading-animation.png</em></p>
+                </div>
+            </section>
+
+            <!-- Setup Instructions -->
+            <section id="setup" class="section">
+                <h2>🚀 Setup Instructions</h2>
+                
+                <div class="card">
+                    <h3>Prerequisites</h3>
+                    <ul>
+                        <li>Modern web browser (Chrome, Firefox, Safari, Edge)</li>
+                        <li>Text editor or IDE (VS Code, Atom, Sublime Text)</li>
+                        <li>Basic understanding of HTML, CSS, and JavaScript</li>
+                    </ul>
+                </div>
+
+                <h3>Local Development</h3>
+                
+                <h4>1. Clone the repository</h4>
+                <pre><code>git clone https://github.com/your-username/modernweb.git
+cd modernweb</code></pre>
+
+                <h4>2. Open the project</h4>
+                <pre><code># Open in your preferred editor
+code .
+
+# Or open index.html directly in browser
+open index.html</code></pre>
+
+                <h4>3. Local Server (Recommended)</h4>
+                <pre><code># Using Python 3
+python -m http.server 8000
+
+# Using Node.js
+npx http-server
+
+# Using PHP
+php -S localhost:8000</code></pre>
+
+                <h4>4. View in browser</h4>
+                <pre><code>http://localhost:8000</code></pre>
+
+                <div class="card">
+                    <h3>File Structure</h3>
+                    <pre><code>modernweb/
+├── index.html              # Main HTML file
+├── 404.html               # Custom 404 error page
+├── README.md              # Project documentation
+├── LICENSE                # MIT License
+├── screenshots/           # Project screenshots
+│   ├── banner.png
+│   ├── desktop-home.png
+│   └── mobile-nav.png
+├── assets/               # Static assets (if separated)
+│   ├── css/
+│   ├── js/
+│   └── images/
+└── docs/                 # Additional documentation
+    └── CONTRIBUTING.md</code></pre>
+                </div>
+            </section>
+
+            <!-- Deployment -->
+            <section id="deployment" class="section">
+                <h2>🌐 Deployment</h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>GitHub Pages</h4>
+                        <ol>
+                            <li><strong>Enable GitHub Pages:</strong> Go to repository Settings, scroll to Pages section, select source branch (usually <code>main</code>), save settings</li>
+                            <li><strong>Custom Domain (Optional):</strong> Add CNAME file with your domain</li>
+                        </ol>
+                        <pre><code># Add CNAME file with your domain
+echo "yourdomain.com" > CNAME</code></pre>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4>Netlify</h4>
+                        <ol>
+                            <li><strong>Connect Repository:</strong> Link your GitHub repository</li>
+                            <li><strong>Build Settings:</strong> Set build command: <code># No build needed</code>, Set publish directory: <code>/</code></li>
+                        </ol>
+                        <pre><code># netlify.toml
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404</code></pre>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4>Vercel</h4>
+                        <pre><code># Deploy with Vercel CLI
+npm i -g vercel
+vercel --prod</code></pre>
+                        <p>Or use Vercel Dashboard to import from GitHub and deploy with default settings.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4>Traditional Web Hosting</h4>
+                        <ol>
+                            <li>Upload all files to your web server</li>
+                            <li>Ensure <code>index.html</code> is in the root directory</li>
+                            <li>Set proper file permissions (644 for files, 755 for directories)</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Browser Support -->
+            <section id="browser-support" class="section">
+                <h2>🌐 Browser Support</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Browser</th>
+                            <th>Version</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Chrome</td>
+                            <td>60+</td>
+                            <td><span class="status supported">✅ Fully Supported</span></td>
+                        </tr>
+                        <tr>
+                            <td>Firefox</td>
+                            <td>55+</td>
+                            <td><span class="status supported">✅ Fully Supported</span></td>
+                        </tr>
+                        <tr>
+                            <td>Safari</td>
+                            <td>12+</td>
+                            <td><span class="status supported">✅ Fully Supported</span></td>
+                        </tr>
+                        <tr>
+                            <td>Edge</td>
+                            <td>79+</td>
+                            <td><span class="status supported">✅ Fully Supported</span></td>
+                        </tr>
+                        <tr>
+                            <td>Opera</td>
+                            <td>47+</td>
+                            <td><span class="status supported">✅ Fully Supported</span></td>
+                        </tr>
+                        <tr>
+                            <td>IE</td>
+                            <td>11</td>
+                            <td><span class="status limited">⚠️ Limited Support</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="card">
+                    <h3>Progressive
